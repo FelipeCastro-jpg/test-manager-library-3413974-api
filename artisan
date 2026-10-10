@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+
+define('LARAVEL_START', microtime(true));
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
+$app = require_once __DIR__ . '/bootstrap/app.php';
+
+$args = $_SERVER['argv'];
+$command = $args[1] ?? 'help';
+
+if ($command === 'serve') {
+    $host = '0.0.0.0';
+    $port = 8000;
+    foreach ($args as $arg) {
+        if (str_starts_with($arg, '--host=')) $host = substr($arg, 7);
+        if (str_starts_with($arg, '--port=')) $port = substr($arg, 7);
+    }
+    echo "Starting Laravel development server: http://$host:$port\n";
+    passthru("php -S $host:$port server.php");
+    exit(0);
+}
+
+if ($command === 'migrate') {
+    require_once __DIR__ . '/database/migrations/runner.php';
+    run_migrations();
+    exit(0);
+}
+
+if ($command === 'db:seed') {
+    require_once __DIR__ . '/database/seeders/InitialAdminSeeder.php';
+    InitialAdminSeeder::run();
+    exit(0);
+}
+
+echo "Manager Library CLI\n";
+echo "Available commands:\n";
+echo "  serve         Start the development server\n";
+echo "  migrate       Run database migrations\n";
+echo "  db:seed       Seed initial administrator\n";

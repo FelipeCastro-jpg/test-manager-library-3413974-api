@@ -1,0 +1,21 @@
+{
+  "name": "sena/manager-library-api",
+  "type": "project",
+  "description": "Backend API para Manager Library - Ficha ADSO 3413974",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Seeders\\": "database/seeders/",
+      "Database\\Migrations\\": "database/migrations/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
+

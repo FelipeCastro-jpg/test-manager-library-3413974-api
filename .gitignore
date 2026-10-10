@@ -1,0 +1,4 @@
+.env
+/vendor/
+/var/covers/*
+!/var/covers/.gitkeep
